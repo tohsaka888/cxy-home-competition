@@ -5,7 +5,7 @@ import { connectDB } from '../../utils/connectDB'
 /**
  * @openapi
  * /api/brief:
- *   post:
+ *   get:
  *     description: 获取比赛简单列表
  *     responses:
  *       200:
