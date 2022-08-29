@@ -2,6 +2,8 @@
 import { ObjectId } from 'mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectDB } from 'utils/connectDB'
+import Cors from 'cors'
+import { runMiddleware } from '@utils/runMiddleware'
 
 /**
  * @openapi
@@ -22,16 +24,21 @@ import { connectDB } from 'utils/connectDB'
  *               
  */
 
+const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD'],
+})
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
+    await runMiddleware(req, res, cors)
     const db = await connectDB()
     const query = req.query
     if (db) {
       const competitionCollection = db.collection('competition')
-      const competition = await competitionCollection.findOne({_id: new ObjectId(query.id as string)})
+      const competition = await competitionCollection.findOne({ _id: new ObjectId(query.id as string) })
       res.status(200).json({ success: true, competition })
     } else {
       new Error('连接数据库失败')

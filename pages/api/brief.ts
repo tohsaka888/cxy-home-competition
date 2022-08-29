@@ -1,6 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectDB } from '../../utils/connectDB'
+import Cors from 'cors'
+import { runMiddleware } from '@utils/runMiddleware'
 
 /**
  * @openapi
@@ -31,11 +33,17 @@ import { connectDB } from '../../utils/connectDB'
  *               
  */
 
+ const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD'],
+})
+
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
+    await runMiddleware(req, res, cors)
     const db = await connectDB()
     if (db) {
       const competition = db.collection('competition')
