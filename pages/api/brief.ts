@@ -45,7 +45,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    // await runMiddleware(req, res, cors)
+    await runMiddleware(req, res, cors)
     const db = await connectDB()
     if (db) {
       const competition = db.collection('competition')
