@@ -39,6 +39,7 @@ declare namespace API {
     updatedTime: string;
     participants: Participant[];
     winners: Winner[];
+    intro: string;
     info: Info;
     banners: CompetitionImage[];
     creator: Creator;
