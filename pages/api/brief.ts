@@ -34,7 +34,9 @@ import { runMiddleware } from '@utils/runMiddleware'
  */
 
  const cors = Cors({
-  methods: ['POST', 'GET', 'HEAD'],
+  methods: ['POST', 'GET', 'HEAD',],
+  origin: '*',
+  preflightContinue: true
 })
 
 

@@ -24,8 +24,10 @@ import { runMiddleware } from '@utils/runMiddleware'
  *               
  */
 
-const cors = Cors({
-  methods: ['POST', 'GET', 'HEAD'],
+ const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD',],
+  origin: '*',
+  preflightContinue: true
 })
 
 export default async function handler(
