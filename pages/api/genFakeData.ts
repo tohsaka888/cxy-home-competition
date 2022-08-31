@@ -7,7 +7,7 @@ import { genMockData } from 'mock/genMockData'
 
 /**
  * @openapi
- * /api/brief:
+ * /api/genFakeData:
  *   get:
  *     description: 获取假数据
  *     responses:
@@ -34,11 +34,6 @@ import { genMockData } from 'mock/genMockData'
  *               
  */
 
-const cors = Cors({
-  methods: ['POST', 'GET', 'HEAD',],
-  origin: '*',
-  preflightContinue: true
-})
 
 
 export default async function handler(
