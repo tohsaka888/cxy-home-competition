@@ -1,16 +1,16 @@
 import { MongoClient, ServerApiVersion } from 'mongodb'
 
-if (!process.env.mongoUri) {
-  throw new Error('Invalid environment variable: "mongoUri"')
+if (!process.env.MONGODB_URI) {
+  throw new Error('Invalid environment variable: "MONGODB_URI"')
 }
 
-const uri = process.env.mongoUri
+const uri = process.env.MONGODB_URI
 const options = { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 }
 
 let client
 let clientPromise: Promise<MongoClient>
 
-if (!process.env.mongoUri) {
+if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local')
 }
 
@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'development') {
   clientPromise = (global as any)._mongoClientPromise
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(process.env.mongoUri, options)
+  client = new MongoClient(process.env.MONGODB_URI, options)
   clientPromise = client.connect()
 }
 
