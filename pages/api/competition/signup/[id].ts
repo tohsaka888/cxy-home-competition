@@ -56,9 +56,13 @@ export default async function handler(
     if (db) {
       const users = db.collection('users')
       const user = await users.findOne({ username })
-      const competitionCollection = db.collection('competition')
-      const competition = await competitionCollection.updateOne({ _id: new ObjectId(query.id as string) }, { $addToSet: { "participants": user } })
-      res.status(200).json({ success: true, isSignUp: competition.acknowledged ? true : false })
+      if (user) {
+        const competitionCollection = db.collection('competition')
+        const competition = await competitionCollection.updateOne({ _id: new ObjectId(query.id as string) }, { $addToSet: { "participants": user } })
+        res.status(200).json({ success: true, isSignUp: competition.acknowledged ? true : false })
+      } else {
+        res.status(200).json({ success: false, error: '用户不存在' })
+      }
     } else {
       new Error('连接数据库失败')
     }
