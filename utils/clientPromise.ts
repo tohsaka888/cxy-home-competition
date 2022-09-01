@@ -1,11 +1,11 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient, ServerApiVersion } from 'mongodb'
 
 if (!process.env.mongoUri) {
   throw new Error('Invalid environment variable: "mongoUri"')
 }
 
 const uri = process.env.mongoUri
-const options = {}
+const options = { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 }
 
 let client
 let clientPromise: Promise<MongoClient>
