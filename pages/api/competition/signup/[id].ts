@@ -57,6 +57,7 @@ export default async function handler(
       const users = db.collection('users')
       const user = await users.findOne({ username })
       if (user) {
+        delete user.password
         const competitionCollection = db.collection('competition')
         const competition = await competitionCollection.updateOne({ _id: new ObjectId(query.id as string) }, { $addToSet: { "participants": user } })
         res.status(200).json({ success: true, isSignUp: competition.acknowledged ? true : false })
